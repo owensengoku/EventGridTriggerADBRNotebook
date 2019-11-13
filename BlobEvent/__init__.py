@@ -16,7 +16,7 @@ def main(event: func.EventGridEvent):
 
     logging.info('Python EventGrid trigger received an event: %s', result)
 
-    blob_url = event.get_json().get('data',{}).get("url")
+    blob_url = event.get_json().get("url")
     if blob_url is None:
         logging.info(f"{event.id} did not contain a 'url' attribute in its 'data' attribute.  Exiting.")
         return None

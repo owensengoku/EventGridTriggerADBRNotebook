@@ -4,7 +4,7 @@ import requests
 
 _DBR_TOKEN = os.getenv("DBR_TOKEN")
 _DBR_WORKSPACE = os.getenv("DBR_TOKEN")
-_DBR_JOB_ID = os.getenv("DBR_JOB_ID")
+_DBR_JOB_ID = int(os.getenv("DBR_JOB_ID"))
 
 def auth():
     return {"Authorization": f"Bearer {_DBR_TOKEN}"}
