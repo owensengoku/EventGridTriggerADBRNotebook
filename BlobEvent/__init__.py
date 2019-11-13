@@ -19,7 +19,7 @@ def main(event: func.EventGridEvent):
     blob_url = event.get_json().get("url")
     if blob_url is None:
         logging.info(f"{event.id} did not contain a 'url' attribute in its 'data' attribute.  Exiting.")
-        return None
+        exit(1)
     
     # Reshape the blob url to be wasbs format (wasbs://CONTAINER@STORAGE_ACCOUNT/FILE_PATH)
     # Input as https://STORAGE_ACCOUNT/CONTAINER/FILE_PATH
@@ -33,7 +33,8 @@ def main(event: func.EventGridEvent):
 
     wasbs_url = f"wasbs://{container}@{storage_acct}/{filepath}"
     logging.info(f"Running a job for this wasbs file: {wasbs_url}")
-    job_results = json.dumps(run_job(wasbs_url),indent = 2)
+    job_results = run_job(wasbs_url)
+    job_string = json.dumps(job_results)
 
     logging.info(f"Job trigger results were: {job_results}")
     logging.info(f"Completed Event Grid Trigger for {event.id}")
